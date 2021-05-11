@@ -1,0 +1,49 @@
+{
+  "package": {
+    "dependencies": {
+      "@material-ui/core": "^4.11.4",
+      "@material-ui/icons": "^4.11.2",
+      "@material-ui/lab": "^4.0.0-alpha.58",
+      "@testing-library/jest-dom": "^5.12.0",
+      "@testing-library/react": "^11.2.6",
+      "@testing-library/user-event": "^13.1.8",
+      "dotenv-mode": "^1.1.4",
+      "express": "^4.17.1",
+      "i18next": "^20.2.2",
+      "i18next-browser-languagedetector": "^6.1.1",
+      "i18next-xhr-backend": "^3.2.2",
+      "prop-types": "^15.7.2",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-helmet": "^6.1.0",
+      "react-i18next": "^11.8.15",
+      "react-redux": "^7.2.4",
+      "react-router-dom": "^5.2.0",
+      "react-scripts": "^4.0.3",
+      "redux": "^4.1.0",
+      "web-vitals": "^1.1.2",
+      "workbox-background-sync": "^6.1.5",
+      "workbox-broadcast-update": "^6.1.5",
+      "workbox-cacheable-response": "^6.1.5",
+      "workbox-core": "^6.1.5",
+      "workbox-expiration": "^6.1.5",
+      "workbox-google-analytics": "^6.1.5",
+      "workbox-navigation-preload": "^6.1.5",
+      "workbox-precaching": "^6.1.5",
+      "workbox-range-requests": "^6.1.5",
+      "workbox-routing": "^6.1.5",
+      "workbox-strategies": "^6.1.5",
+      "workbox-streams": "^6.1.5"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "start:prod": "NODE_ENV=production node serve.js",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": ["react-app", "react-app/jest"]
+    }
+  }
+}
