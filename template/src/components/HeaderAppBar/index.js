@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 function HideOnScroll(props) {
       const { children, window } = props;
@@ -113,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HeaderAppBar(props) {
       const classes = useStyles();
       const [anchorEl, setAnchorEl] = React.useState(null);
+      const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
       const history = useHistory()
       const { t } = useTranslation()
@@ -120,6 +122,7 @@ export default function HeaderAppBar(props) {
       const dispatch = useDispatch();
 
       const isMenuOpen = Boolean(anchorEl);
+      const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
       const handleProfileMenuOpen = (event) => {
             setAnchorEl(event.currentTarget);
@@ -132,6 +135,14 @@ export default function HeaderAppBar(props) {
       const handleMenuLogout = () => {
             dispatch({ type: 'AUTHENTICATED', payload: false });
             setAnchorEl(null);
+      };
+
+      const handleMobileMenuClose = () => {
+            setMobileMoreAnchorEl(null);
+      };
+
+      const handleMobileMenuOpen = (event) => {
+            setMobileMoreAnchorEl(event.currentTarget);
       };
 
       const menuId = 'primary-search-account-menu';
@@ -147,6 +158,58 @@ export default function HeaderAppBar(props) {
             >
                   <MenuItem onClick={handleMenuClose}>{t("Profile")}</MenuItem>
                   <MenuItem onClick={handleMenuLogout}>{t("Logout")}</MenuItem>
+            </Menu>
+      );
+
+      const mobileMenuId = 'primary-search-account-menu-mobile';
+      const renderMobileMenu = (
+            <Menu
+                  anchorEl={mobileMoreAnchorEl}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  id={mobileMenuId}
+                  keepMounted
+                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  open={isMobileMenuOpen}
+                  onClose={handleMobileMenuClose}
+            >
+                  {auth.isAuthenticated === true ? (
+                        <React.Fragment>
+                              <MenuItem>
+                                    <IconButton aria-label="show 4 new mails" color="inherit">
+                                          <Badge badgeContent={4} color="secondary">
+                                                <MailIcon />
+                                          </Badge>
+                                    </IconButton>
+                                    <p>{t("Messages")}</p>
+                              </MenuItem>
+                              <MenuItem>
+                                    <IconButton aria-label="show 11 new notifications" color="inherit">
+                                          <Badge badgeContent={11} color="secondary">
+                                                <NotificationsIcon />
+                                          </Badge>
+                                    </IconButton>
+                                    <p>{t("Notifications")}</p>
+                              </MenuItem>
+                              <MenuItem onClick={handleProfileMenuOpen}>
+                                    <IconButton
+                                          aria-label="account of current user"
+                                          aria-controls="primary-search-account-menu"
+                                          aria-haspopup="true"
+                                          color="inherit"
+                                    >
+                                          <AccountCircle />
+                                    </IconButton>
+                                    <p>{t("Profile")}</p>
+                              </MenuItem>
+                        </React.Fragment>
+                  ) : (<React.Fragment>
+                        <MenuItem>
+                              <Button color="inherit" onClick={() => { history.push('/login') }}>{t("Login")}</Button>
+                        </MenuItem>
+                        <MenuItem>
+                              <Button color="inherit" onClick={() => { history.push('/register') }}>{t("Register")}</Button>
+                        </MenuItem>
+                  </React.Fragment>)}
             </Menu>
       );
 
@@ -174,39 +237,67 @@ export default function HeaderAppBar(props) {
                                     </div>
                                     <div className={classes.grow} />
                                     {auth.isAuthenticated === true ? (
-                                          <div className={classes.sectionDesktop}>
-                                                <IconButton aria-label="show 4 new mails" color="inherit">
-                                                      <Badge badgeContent={4} color="secondary">
-                                                            <MailIcon />
-                                                      </Badge>
-                                                </IconButton>
-                                                <IconButton aria-label="show 17 new notifications" color="inherit">
-                                                      <Badge badgeContent={17} color="secondary">
-                                                            <NotificationsIcon />
-                                                      </Badge>
-                                                </IconButton>
-                                                <IconButton
-                                                      edge="end"
-                                                      aria-label="account of current user"
-                                                      aria-controls={menuId}
-                                                      aria-haspopup="true"
-                                                      onClick={handleProfileMenuOpen}
-                                                      color="inherit"
-                                                >
-                                                      <AccountCircle />
-                                                </IconButton>
-                                          </div>
+                                          <React.Fragment>
+                                                <div className={classes.sectionDesktop}>
+                                                      <IconButton aria-label="show 4 new mails" color="inherit">
+                                                            <Badge badgeContent={4} color="secondary">
+                                                                  <MailIcon />
+                                                            </Badge>
+                                                      </IconButton>
+                                                      <IconButton aria-label="show 17 new notifications" color="inherit">
+                                                            <Badge badgeContent={17} color="secondary">
+                                                                  <NotificationsIcon />
+                                                            </Badge>
+                                                      </IconButton>
+                                                      <IconButton
+                                                            edge="end"
+                                                            aria-label="account of current user"
+                                                            aria-controls={menuId}
+                                                            aria-haspopup="true"
+                                                            onClick={handleProfileMenuOpen}
+                                                            color="inherit"
+                                                      >
+                                                            <AccountCircle />
+                                                      </IconButton>
+                                                </div>
+                                                <div className={classes.sectionMobile}>
+                                                      <IconButton
+                                                            aria-label="show more"
+                                                            aria-controls={mobileMenuId}
+                                                            aria-haspopup="true"
+                                                            onClick={handleMobileMenuOpen}
+                                                            color="inherit"
+                                                      >
+                                                            <MoreIcon />
+                                                      </IconButton>
+                                                </div>
+
+                                          </React.Fragment>
                                     ) : (
-                                          <div className={classes.sectionDesktop}>
-                                                <Button color="inherit" onClick={() => {history.push('/login')}}>{t("Login")}</Button>
-                                                <Button color="inherit" onClick={() => {history.push('/register')}}>{t("Register")}</Button>
-                                          </div>
+                                          <React.Fragment>
+                                                <div className={classes.sectionDesktop}>
+                                                      <Button color="inherit" onClick={() => { history.push('/login') }}>{t("Login")}</Button>
+                                                      <Button color="inherit" onClick={() => { history.push('/register') }}>{t("Register")}</Button>
+                                                </div>
+                                                <div className={classes.sectionMobile}>
+                                                      <IconButton
+                                                            aria-label="show more"
+                                                            aria-controls={mobileMenuId}
+                                                            aria-haspopup="true"
+                                                            onClick={handleMobileMenuOpen}
+                                                            color="inherit"
+                                                      >
+                                                            <MoreIcon />
+                                                      </IconButton>
+                                                </div>
+                                          </React.Fragment>
                                     )}
                               </Toolbar>
                         </AppBar>
 
                   </HideOnScroll>
                   {renderMenu}
+                  {renderMobileMenu}
                   <Toolbar />
                   <Container style={{
                         height: '100%'
