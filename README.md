@@ -1,1 +1,1 @@
-# -cra-template-n-devs
+# cra-template-n-devs
