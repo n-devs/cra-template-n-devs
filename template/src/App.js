@@ -13,7 +13,7 @@ function App() {
       return (
             <HeaderAppBar>
                   <Switch>
-                        <Route exact path="/">
+                        <Route exact={true} path="/">
                               <HomeView />
                         </Route>
                         <Route path="/login">

@@ -14,7 +14,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -22,6 +21,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 function HideOnScroll(props) {
       const { children, window } = props;
@@ -114,8 +114,9 @@ export default function HeaderAppBar(props) {
       const classes = useStyles();
       const [anchorEl, setAnchorEl] = React.useState(null);
 
+      const history = useHistory()
       const { t } = useTranslation()
-      const fakeAuth = useSelector(state => state.auth);
+      const auth = useSelector(state => state.auth);
       const dispatch = useDispatch();
 
       const isMenuOpen = Boolean(anchorEl);
@@ -155,14 +156,6 @@ export default function HeaderAppBar(props) {
                   <HideOnScroll {...props}>
                         <AppBar>
                               <Toolbar>
-                                    <IconButton
-                                          edge="start"
-                                          className={classes.menuButton}
-                                          color="inherit"
-                                          aria-label="open drawer"
-                                    >
-                                          <MenuIcon />
-                                    </IconButton>
                                     <Typography className={classes.title} variant="h6" noWrap>
                                           {t("React JS")}
                                     </Typography>
@@ -180,7 +173,7 @@ export default function HeaderAppBar(props) {
                                           />
                                     </div>
                                     <div className={classes.grow} />
-                                    {fakeAuth.isAuthenticated === true ? (
+                                    {auth.isAuthenticated === true ? (
                                           <div className={classes.sectionDesktop}>
                                                 <IconButton aria-label="show 4 new mails" color="inherit">
                                                       <Badge badgeContent={4} color="secondary">
@@ -203,19 +196,24 @@ export default function HeaderAppBar(props) {
                                                       <AccountCircle />
                                                 </IconButton>
                                           </div>
-                                    ):(
+                                    ) : (
                                           <div className={classes.sectionDesktop}>
-                                                <Button color="inherit" href="/login">{t("Login")}</Button>
-                                                <Button color="inherit" href="/register">{t("Register")}</Button>
+                                                <Button color="inherit" onClick={() => {history.push('/login')}}>{t("Login")}</Button>
+                                                <Button color="inherit" onClick={() => {history.push('/register')}}>{t("Register")}</Button>
                                           </div>
                                     )}
                               </Toolbar>
                         </AppBar>
-                        {renderMenu}
+
                   </HideOnScroll>
+                  {renderMenu}
                   <Toolbar />
-                  <Container>
-                        <Box my={2}>
+                  <Container style={{
+                        height: '100%'
+                  }}>
+                        <Box my={2} style={{
+                              height: '100%'
+                        }}>
                               {props.children}
                         </Box>
                   </Container>
