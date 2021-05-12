@@ -1,6 +1,7 @@
 {
   "package": {
     "dependencies": {
+      "@beam-australia/react-env": "^3.1.1",
       "@material-ui/core": "^4.11.4",
       "@material-ui/icons": "^4.11.2",
       "@material-ui/lab": "^4.0.0-alpha.58",
@@ -8,7 +9,6 @@
       "@testing-library/react": "^11.2.6",
       "@testing-library/user-event": "^13.1.8",
       "clsx": "^1.1.1",
-      "dotenv-mode": "^1.1.4",
       "express": "^4.17.1",
       "i18next": "^20.2.2",
       "i18next-browser-languagedetector": "^6.1.1",
@@ -38,7 +38,8 @@
     },
     "scripts": {
       "start": "react-scripts start",
-      "start:prod": "NODE_ENV=production node serve.js",
+      "start:beta": "APP_ENV=beta react-scripts start",
+      "start:prod": "node serve.js",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject"

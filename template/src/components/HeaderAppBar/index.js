@@ -204,10 +204,16 @@ export default function HeaderAppBar(props) {
                         </React.Fragment>
                   ) : (<React.Fragment>
                         <MenuItem>
-                              <Button color="inherit" onClick={() => { history.push('/login') }}>{t("Login")}</Button>
+                              <Button color="inherit" onClick={() => {
+                                    history.push('/login');
+                                    setMobileMoreAnchorEl(null);
+                              }}>{t("Login")}</Button>
                         </MenuItem>
                         <MenuItem>
-                              <Button color="inherit" onClick={() => { history.push('/register') }}>{t("Register")}</Button>
+                              <Button color="inherit" onClick={() => {
+                                    history.push('/register');
+                                    setMobileMoreAnchorEl(null);
+                              }}>{t("Register")}</Button>
                         </MenuItem>
                   </React.Fragment>)}
             </Menu>

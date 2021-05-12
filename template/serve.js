@@ -1,10 +1,9 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const env = require('dotenv-mode');
 
 const app = express();
-const port = env("PORT") || 3000;
+const port = process.env.PORT || 3000;
 
 app.get('/', function (request, response) {
       console.log('Home page visited!');
