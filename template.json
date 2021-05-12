@@ -16,6 +16,7 @@
       "prop-types": "^15.7.2",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
+      "react-dotenv-mode": "^1.1.9",
       "react-helmet": "^6.1.0",
       "react-i18next": "^11.8.15",
       "react-redux": "^7.2.4",
@@ -38,7 +39,7 @@
     },
     "scripts": {
       "start": "react-scripts start",
-      "start:beta": "APP_ENV=beta react-scripts start",
+      "start:beta": "REACT_APP_ENV=beta react-dotenv-mode react-scripts start",
       "start:prod": "node serve.js",
       "build": "react-scripts build",
       "test": "react-scripts test",
