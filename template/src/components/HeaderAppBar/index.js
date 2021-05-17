@@ -4,10 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import Slide from '@material-ui/core/Slide';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
@@ -18,34 +16,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import HideOnScroll from './components/HideOnScroll'
+import T from '../T'
 
-function HideOnScroll(props) {
-      const { children, window } = props;
-      // Note that you normally won't need to set the window ref as useScrollTrigger
-      // will default to window.
-      // This is only being set here because the demo is in an iframe.
-      const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
-      return (
-            <Slide appear={false} direction="down" in={!trigger}>
-                  {children}
-            </Slide>
-      );
-}
-
-HideOnScroll.propTypes = {
-      children: PropTypes.element.isRequired,
-      /**
-       * Injected by the documentation to work in an iframe.
-       * You won't need it on your project.
-       */
-      window: PropTypes.func,
-};
 
 const useStyles = makeStyles((theme) => ({
       grow: {
@@ -111,13 +88,12 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HeaderAppBar(props) {
+function HeaderAppBar(props) {
       const classes = useStyles();
       const [anchorEl, setAnchorEl] = React.useState(null);
       const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
       const history = useHistory()
-      const { t } = useTranslation()
       const auth = useSelector(state => state.auth);
       const dispatch = useDispatch();
 
@@ -156,8 +132,8 @@ export default function HeaderAppBar(props) {
                   open={isMenuOpen}
                   onClose={handleMenuClose}
             >
-                  <MenuItem onClick={handleMenuClose}>{t("Profile")}</MenuItem>
-                  <MenuItem onClick={handleMenuLogout}>{t("Logout")}</MenuItem>
+                  <MenuItem onClick={handleMenuClose}><T>Profile</T></MenuItem>
+                  <MenuItem onClick={handleMenuLogout}><T>Logout</T></MenuItem>
             </Menu>
       );
 
@@ -173,14 +149,14 @@ export default function HeaderAppBar(props) {
                   onClose={handleMobileMenuClose}
             >
                   {auth.isAuthenticated === true ? (
-                        <React.Fragment>
+                        <div>
                               <MenuItem>
                                     <IconButton aria-label="show 4 new mails" color="inherit">
                                           <Badge badgeContent={4} color="secondary">
                                                 <MailIcon />
                                           </Badge>
                                     </IconButton>
-                                    <p>{t("Messages")}</p>
+                                    <p><T>Messages</T></p>
                               </MenuItem>
                               <MenuItem>
                                     <IconButton aria-label="show 11 new notifications" color="inherit">
@@ -188,7 +164,7 @@ export default function HeaderAppBar(props) {
                                                 <NotificationsIcon />
                                           </Badge>
                                     </IconButton>
-                                    <p>{t("Notifications")}</p>
+                                    <p><T>Notifications</T></p>
                               </MenuItem>
                               <MenuItem onClick={handleProfileMenuOpen}>
                                     <IconButton
@@ -199,23 +175,23 @@ export default function HeaderAppBar(props) {
                                     >
                                           <AccountCircle />
                                     </IconButton>
-                                    <p>{t("Profile")}</p>
+                                    <p><T>Profile</T></p>
                               </MenuItem>
-                        </React.Fragment>
-                  ) : (<React.Fragment>
+                        </div>
+                  ) : (<div>
                         <MenuItem>
                               <Button color="inherit" onClick={() => {
                                     history.push('/login');
                                     setMobileMoreAnchorEl(null);
-                              }}>{t("Login")}</Button>
+                              }}><T>Login</T></Button>
                         </MenuItem>
                         <MenuItem>
                               <Button color="inherit" onClick={() => {
                                     history.push('/register');
                                     setMobileMoreAnchorEl(null);
-                              }}>{t("Register")}</Button>
+                              }}><T>Register</T></Button>
                         </MenuItem>
-                  </React.Fragment>)}
+                  </div>)}
             </Menu>
       );
 
@@ -225,9 +201,13 @@ export default function HeaderAppBar(props) {
                   <HideOnScroll {...props}>
                         <AppBar>
                               <Toolbar>
-                                    <Typography className={classes.title} variant="h6" noWrap>
-                                          {t("React JS")}
-                                    </Typography>
+                                    <Button onClick={() => {
+                                          history.push('/')
+                                    }} >
+                                          <Typography className={classes.title} variant="h6" noWrap>
+                                                <T>React JS</T>
+                                          </Typography>
+                                    </Button>
                                     <div className={classes.search}>
                                           <div className={classes.searchIcon}>
                                                 <SearchIcon />
@@ -282,8 +262,8 @@ export default function HeaderAppBar(props) {
                                     ) : (
                                           <React.Fragment>
                                                 <div className={classes.sectionDesktop}>
-                                                      <Button color="inherit" onClick={() => { history.push('/login') }}>{t("Login")}</Button>
-                                                      <Button color="inherit" onClick={() => { history.push('/register') }}>{t("Register")}</Button>
+                                                      <Button color="inherit" onClick={() => { history.push('/login') }}><T>Login</T></Button>
+                                                      <Button color="inherit" onClick={() => { history.push('/register') }}><T>Register</T></Button>
                                                 </div>
                                                 <div className={classes.sectionMobile}>
                                                       <IconButton
@@ -318,6 +298,9 @@ export default function HeaderAppBar(props) {
       );
 }
 
+
 HeaderAppBar.propTypes = {
       children: PropTypes.element.isRequired,
 };
+
+export default HeaderAppBar

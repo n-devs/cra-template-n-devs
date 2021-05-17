@@ -25,6 +25,7 @@ import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Helmet } from 'react-helmet';
+import FirebaseSignIn from '../../components/FirebaseSignIn'
 
 const useStyles = makeStyles((theme) => ({
       root: {
@@ -210,6 +211,9 @@ function RegisterView(props) {
                                           <Button variant="contained" color="primary" onClick={handleClickRegister}>
                                                 {t("Sign Up")}
                                           </Button>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                          <FirebaseSignIn></FirebaseSignIn>
                                     </Grid>
                               </Grid>
                         </Paper>

@@ -1,4 +1,4 @@
-const initState = {
+export const initState = {
       id: "",
       username: "",
       email: "",

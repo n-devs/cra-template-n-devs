@@ -4,7 +4,6 @@ import {
       // useDispatch
 } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import {useTranslation} from 'react-i18next'
 import logo from '../../logo.svg';
 import '../../App.css';
 
@@ -12,11 +11,11 @@ function HomeView() {
       const fakeAuth = useSelector(state => state.auth);
       const user = useSelector(state => state.user);
       
-      const {t} = useTranslation()
+  
       return (
             <div className="App">
                   <Helmet>
-                        <title>{t('React JS | Home')}</title>
+                        <title>React JS | Home</title>
                         <meta name="description" content="Helmet application" />
                   </Helmet>
                   <header className="App-header">

@@ -24,6 +24,7 @@ import clsx from 'clsx';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Helmet } from 'react-helmet';
+import FirebaseSignIn from '../../components/FirebaseSignIn'
 
 const useStyles = makeStyles((theme) => ({
       root: {
@@ -167,6 +168,9 @@ function LoginView(props) {
                                           <Button variant="contained" color="primary" onClick={handleClickLogIn}>
                                                 {t("Sign In")}
                                           </Button>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                          <FirebaseSignIn></FirebaseSignIn>
                                     </Grid>
                               </Grid>
                         </Paper>
