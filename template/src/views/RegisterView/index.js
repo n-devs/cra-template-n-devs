@@ -18,14 +18,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from '@mui/material/Alert';
 import { Helmet } from 'react-helmet';
-import FirebaseSignIn from '../../components/FirebaseSignIn'
+// import FirebaseSignIn from '../../components/FirebaseSignIn'
 
 const useStyles = makeStyles((theme) => ({
       root: {
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
             flexWrap: 'wrap',
       },
       margin: {
-            margin: theme.spacing(1),
+            margin: 33,
       },
       withoutLabel: {
-            marginTop: theme.spacing(3),
+            marginTop: 3,
       },
       textField: {
             width: '30ch',
@@ -213,7 +213,7 @@ function RegisterView(props) {
                                           </Button>
                                     </Grid>
                                     <Grid item xs={12}>
-                                          <FirebaseSignIn></FirebaseSignIn>
+                                          {/* <FirebaseSignIn></FirebaseSignIn> */}
                                     </Grid>
                               </Grid>
                         </Paper>
